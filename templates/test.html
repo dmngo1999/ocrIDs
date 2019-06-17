@@ -1,0 +1,92 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="assets/index.css"></script>
+<script src="assets/index.css"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+<div class="page-header" align="center">
+    <h1>ID Card Reader <small>Vietnamese version</small></h1>
+</div>
+
+    <br>
+    
+    <form style="margin-left: 0.75em;" action="/" method="POST" enctype="multipart/form-data">
+
+        <div class="panel panel-default">
+            <div class="panel-heading" align="center">
+                <h3 class="panel-title">Select what you want to extract:</h3>
+            </div>
+            <div class="panel-body" align="center">
+                <div class="row">
+                    <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="checkbox" name="nameBool" value="checked"> Name</input>
+                        <input type="checkbox" name="idBool" value="checked"> ID Number</input>
+                        <input type="checkbox" name="nationBool" value="checked"> Nationality</input>
+                        <input type="checkbox" name="genderBool" value="checked"> Gender</input>
+                        <input type="checkbox" name="birthdayBool" value="checked"> Birthdate</input>
+                    </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+            </div>
+        </div>
+
+        <h3>Input ID file:</h3>
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+   
+
+        <h3>Result:</h3>
+        <div class="row" style="margin-left: 0.5em;">
+            <div class="col-lg-6">
+
+                {% if msg %}
+                    <h5>{{ msg }}</h5>
+                {% endif %}
+
+                <div class="media-middle">
+                    {% if user_image %}
+                        <img src="{{ url_for('static', filename=user_image) }}" alt="User Image">
+                    {% endif %}
+                </div>
+            </div>
+        
+        <div class="col-lg-6">
+
+            {% if time %}
+                <p> Result took<b> {{ time }} </b> seconds </p>
+
+            {% endif %}
+
+            {% if nameBoolean %}
+                <p> Name: <b> {{ name }} </b></p>
+
+            {% endif %}
+
+            {% if idBoolean %}
+                <p> ID Number: <b> {{ idNum }} </b></p>
+
+            {% endif %}
+
+            {% if genderBoolean %}
+                <p> Gender: <b> {{ gender }} </b></p>
+
+            {% endif %}
+
+            {% if nationBoolean %}
+                <p> Nationality: <b> {{ nationality }} </b></p>
+
+            {% endif %}
+
+            {% if birthdayBoolean %}
+                <p> Birthday: <b> {{ birthday }} </b></p>
+
+            {% endif %}
+        </div>
+    </form>
+
+{% endblock %}

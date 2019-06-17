@@ -1,0 +1,111 @@
+
+
+<!------ Include the above in your HEAD tag ---------->
+{% extends "bootstrap/base.html" %}
+
+{% block styles %}
+{{super()}}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel=¨stylesheet¨ href="{{url_for('.static', filename='assets/index.css')}}">
+{% endblock %}
+
+{% block scripts %}
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{url_for('.static', filename='assets/myscripts.js')}}"></script>
+{{super()}}
+{% endblock %}
+
+
+{% block content %}
+<div class="page-header" align="center">
+    <h1>ID Card Reader <small>Vietnamese version</small></h1>
+</div>
+
+    <br>
+    
+    <form style="margin-left: 0.75em;" action="/" method="POST" enctype="multipart/form-data">
+        <p>
+        <div class="panel panel-default">
+            <div class="panel-heading" align="center">
+                <h2 class="panel-title">Select what you want to extract:</h2>
+            </div>
+            <div class="panel-body" align="center">
+                <div class="row">
+                    <div class="col-lg-6">
+                    <div class="input-group">
+                        <h5>
+                            <input type="checkbox" name="nameBool" value="checked"> Name</input>
+                            <input type="checkbox" name="idBool" value="checked"> ID Number</input>
+                            <input type="checkbox" name="nationBool" value="checked"> Nationality</input>
+                            <input type="checkbox" name="genderBool" value="checked"> Gender</input>
+                            <input type="checkbox" name="birthdayBool" value="checked"> Birthdate</input>
+                            <input type="checkbox" name="expireBool" value="checked"> Expiry Date</input>
+                        </h5>
+                    </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                </div><!-- /.row -->
+            </div>
+        </div>
+
+        <h2>Input ID file:</h2>
+
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+        </p>
+
+
+        <h2>Result:</h2>
+        
+
+        {% if msg %}
+            <h5>{{ msg }}</h5>
+        {% endif %}
+        <div class="row">
+            <div class="media-middle">
+                {% if user_image %}
+                    <img src="{{ url_for('static', filename=user_image) }}" alt="User Image">
+                {% endif %}
+            </div>
+
+            <div class="col">
+                {% if time %}
+                    <p><h5> Result took<b> {{ time }} </b> seconds </h5></p>
+
+                {% endif %}
+
+                {% if nameBoolean %}
+                    <p> <h5>Name: <b> {{ name }} </b></h5></p>
+
+                {% endif %}
+
+                {% if idBoolean %}
+                    <p><h5> ID Number: <b> {{ idNum }} </b></h5></p>
+
+                {% endif %}
+
+                {% if genderBoolean %}
+                    <p><h5> Gender: <b> {{ gender }} </b></h5></p>
+
+                {% endif %}
+
+                {% if nationBoolean %}
+                    <p> <h5>Nationality: <b> {{ nationality }} </b></h5></p>
+
+                {% endif %}
+
+                {% if birthdayBoolean %}
+                    <p><h5> Birthday: <b> {{ birthday }} </b></h5></p>
+
+                {% endif %}
+
+                {% if expireBoolean %}
+                    <p><h5> Expire Date: <b> {{ expire }} </b></h5></p>
+
+                {% endif %}
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
